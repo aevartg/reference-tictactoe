@@ -12,6 +12,22 @@ export GITHUB_URL=$(echo $GIT_URL | rev | cut -c 5- | rev)
 echo "Cleaning and building"
 npm run build
 
+cat > ./dist/githash.txt <<_EOF_
+$GIT_COMMIT
+_EOF_
+
+cat > ./dist/public/version.html << _EOF_
+<!doctype html>
+<head>
+   <title>App version information</title>
+</head>
+<body>
+   <span>Origin:</span> <span>$GITHUB_URL</span>
+   <span>Revision:</span> <span>$GIT_COMMIT</span>
+   <p>
+   <div><a href="$GITHUB_URL/commits/$GIT_COMMIT">History of current version</a></div>
+</body>
+_EOF_
 
 rc=$?
 if [[ $rc != 0 ]] ; then
@@ -29,13 +45,10 @@ echo "opening build directory"
 cd build
 
 echo "Building"
-docker build -t aevartg/tictactoe:$GIT_COMMIT .
+docker build -t aevartg/tictactoe .
 echo "composing"
 docker-compose up
 
-
-
-docker build -t aevartg/tictactoe:$GIT_COMMIT .
 
 rc=$?
 if [[ $rc != 0 ]] ; then
@@ -43,11 +56,12 @@ if [[ $rc != 0 ]] ; then
     exit $rc
 fi
 
-docker push aevartg/tictactoe:$GIT_COMMIT
+docker push aevartg/tictactoe
 rc=$?
 if [[ $rc != 0 ]] ; then
     echo "Docker push failed " $rc
     exit $rc
 fi
+
 
 echo "Done"
