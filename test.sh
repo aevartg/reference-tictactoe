@@ -8,7 +8,7 @@ fi
 # Remove .git from url in order to get https link to repo (assumes https url for GitHub)
 export GITHUB_URL=$(echo $GIT_URL | rev | cut -c 5- | rev)
 
-echo "installing npm"
+echo"cleaning and building"
 npm install
 cd client
 npm install
@@ -49,7 +49,7 @@ echo "opening build directory"
 cd build
 
 echo "Building"
-docker build -t aevartg/tictactoe .
+docker build -t aevartg/tictactoe:$GIT_COMMIT .
 echo "composing"
 docker-compose up
 
@@ -60,7 +60,7 @@ if [[ $rc != 0 ]] ; then
     exit $rc
 fi
 
-docker push aevartg/tictactoe
+docker push aevartg/tictactoe:$GIT_COMMIT
 rc=$?
 if [[ $rc != 0 ]] ; then
     echo "Docker push failed " $rc

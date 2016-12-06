@@ -5,7 +5,7 @@ services:
       - 'PGHOST=postgres'
       - 'PGPORT=5432'
       - 'PORT=3000'
-    image: 'aevartg/tictactoe'
+    image: 'aevartg/tictactoe:$GIT_COMMIT'
     ports:
       - '3000:3000'
       - '8080:8080'
