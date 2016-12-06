@@ -8,7 +8,11 @@ fi
 # Remove .git from url in order to get https link to repo (assumes https url for GitHub)
 export GITHUB_URL=$(echo $GIT_URL | rev | cut -c 5- | rev)
 
-
+echo "installing npm"
+npm install
+cd client
+npm install
+cd ..
 echo "Cleaning and building"
 npm run build
 
