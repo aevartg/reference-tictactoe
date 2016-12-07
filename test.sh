@@ -8,19 +8,24 @@ fi
 # Remove .git from url in order to get https link to repo (assumes https url for GitHub)
 export GITHUB_URL=$(echo $GIT_URL | rev | cut -c 5- | rev)
 
-echo"cleaning and building"
+# installs npm 
+echo "installing npm"
 npm install
 cd client
 npm install
 cd ..
+
+#cleans and builds
 echo "Cleaning and building"
 npm run build
 
-cat > ./dist/githash.txt <<_EOF_
-$GIT_COMMIT
+# puts git commit hash to env file in build directory
+cat > ./build/.env <<_EOF_
+GIT_COMMIT=$GIT_COMMIT
 _EOF_
 
-cat > ./dist/public/version.html << _EOF_
+# makes html file with newest version hash and link
+cat > ./build/version.html << _EOF_
 <!doctype html>
 <head>
    <title>App version information</title>
@@ -33,13 +38,14 @@ cat > ./dist/public/version.html << _EOF_
 </body>
 _EOF_
 
+# catches error message if npm build fails
 rc=$?
 if [[ $rc != 0 ]] ; then
     echo "Npm build failed with exit code " $rc
     exit $rc
 fi
 
-
+# copies dockerfile, package.json and run script to build directory
 echo "copying dockerfile and packaje.js to build"
 cp ./Dockerfile ./build/
 cp ./package.json ./build/
@@ -48,24 +54,28 @@ cp ./run.sh ./build/
 echo "opening build directory"
 cd build
 
+#builds the container
 echo "Building"
 docker build -t aevartg/tictactoe:$GIT_COMMIT .
-echo "composing"
-docker-compose up
 
-
+# catches error if docker build fails
 rc=$?
 if [[ $rc != 0 ]] ; then
     echo "Docker build failed " $rc
     exit $rc
 fi
 
+# pushes the container to the docker hub
 docker push aevartg/tictactoe:$GIT_COMMIT
+
+# catches error if docker doesnt push
 rc=$?
 if [[ $rc != 0 ]] ; then
     echo "Docker push failed " $rc
     exit $rc
 fi
 
+echo "composing"
+docker-compose up
 
 echo "Done"
