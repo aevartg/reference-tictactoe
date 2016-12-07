@@ -75,7 +75,10 @@ if [[ $rc != 0 ]] ; then
     exit $rc
 fi
 
-echo "composing"
-docker-compose up
+cd ..
+cd ..
+
+sudo scp -i "ec2-lykill.pem" ./reference-tictactoe/docker-compose.yml /var/lib/jenkins/workspace/Commit\ stage/build/.env ec2-user@ec2-52-19-93-147.eu-west-1.compute.amazonaws.com:.
+sudo ssh -i "ec2-lykill.pem" ec2-user@ec2-52-19-93-147.eu-west-1.compute.amazonaws.com
 
 echo "Done"
