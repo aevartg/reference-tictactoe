@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# ekki klárað
 echo "Creating User"
 
 echo "Enter user name: "

@@ -5,6 +5,7 @@ services:
       - 'PGHOST=postgres'
       - 'PGPORT=5432'
       - 'PORT=3000'
+    # pulls the image tictactoe from aevartg to compose with another image
     image: 'aevartg/tictactoe:${GIT_COMMIT}'
     ports:
       - '80:3000'
@@ -15,6 +16,7 @@ services:
     environment:
       - 'POSTGRES_USER=postgres'
       - 'POSTGRES_PASSWORD=mysecretpassword'
+    # second image for use with tictactoe for the database
     image: postgres
     ports:
       - "5432:5432"
