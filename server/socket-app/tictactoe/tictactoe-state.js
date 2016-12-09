@@ -10,7 +10,6 @@ module.exports = function (injected) {
             if(event.type==="GameJoined"){
                 gamefull = true;
             }
-            console.debug("event", event);
         }
 
         function processEvents(history) {
