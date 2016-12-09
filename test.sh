@@ -78,7 +78,7 @@ fi
 cd ..
 cd ..
 
-sudo scp -i "ec2-lykill.pem" ./reference-tictactoe/docker-compose.yml /var/lib/jenkins/workspace/Commit\ stage/build/.env ec2-user@ec2-52-19-93-147.eu-west-1.compute.amazonaws.com:.
-sudo ssh -t -i "ec2-lykill.pem" ec2-user@ec2-52-19-93-147.eu-west-1.compute.amazonaws.com 'docker-compose up'
+scp -o StrictHostKeyChecking=no -i "ec2-lykill.pem" ./reference-tictactoe/docker-compose.yml /var/lib/jenkins/workspace/Commit\ stage/build/.env ec2-user@ec2-52-50-152-101.eu-west-1.compute.amazonaws.com:.
+ssh -o StrictHostKeyChecking=no -i "ec2-lykill.pem" ec2-user@ec2-52-50-152-101.eu-west-1.compute.amazonaws.com "docker-compose up"
 
 echo "Done"
