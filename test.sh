@@ -10,9 +10,9 @@ export GITHUB_URL=$(echo $GIT_URL | rev | cut -c 5- | rev)
 
 # installs npm 
 echo "installing npm"
-npm install
+npm install --silent
 cd client
-npm install
+npm install --silent
 cd ..
 
 #cleans and builds
@@ -79,6 +79,6 @@ cd ..
 cd ..
 
 sudo scp -i "ec2-lykill.pem" ./reference-tictactoe/docker-compose.yml /var/lib/jenkins/workspace/Commit\ stage/build/.env ec2-user@ec2-52-19-93-147.eu-west-1.compute.amazonaws.com:.
-sudo ssh -i "ec2-lykill.pem" ec2-user@ec2-52-19-93-147.eu-west-1.compute.amazonaws.com 'docker-compose up'
+sudo ssh -t -i "ec2-lykill.pem" ec2-user@ec2-52-19-93-147.eu-west-1.compute.amazonaws.com 'docker-compose up'
 
 echo "Done"
