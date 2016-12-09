@@ -128,7 +128,6 @@ describe('join game command', function () {
     it('should emit FullGameJoinAttempted event when game full..implement this', function () {
 
         expect(true).toBe(false);
-<<<<<<< HEAD
     });
 
 describe('Place move command', function () {
@@ -159,8 +158,6 @@ describe('Place move command', function () {
                 timestampt: "2014-12-02T11:31:29",
             },
         ];
-=======
->>>>>>> parent of 3213f86... npm test run beautifully
     });
 });
 
