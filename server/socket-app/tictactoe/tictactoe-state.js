@@ -4,12 +4,13 @@ module.exports = function (injected) {
 
     return function (history) {
 
-        var gamefull = false;
-
         function processEvent(event) {
+<<<<<<< HEAD
             if(event.type==="GameJoined"){
                 gamefull = true;
             }
+=======
+>>>>>>> parent of 3213f86... npm test run beautifully
         }
 
         function processEvents(history) {
@@ -18,12 +19,7 @@ module.exports = function (injected) {
 
         processEvents(history);
 
-        function gameFull(){
-            return gamefull;
-        }
-
         return {
-            gameFull: gameFull,
             processEvents: processEvents
         }
     };
