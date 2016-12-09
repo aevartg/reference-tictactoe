@@ -10,9 +10,9 @@ export GITHUB_URL=$(echo $GIT_URL | rev | cut -c 5- | rev)
 
 # installs npm 
 echo "installing npm"
-npm install --silent
+npm install npm@3.10.8
 cd client
-npm install --silent
+npm install npm@3.10.8
 cd ..
 
 #cleans and builds
