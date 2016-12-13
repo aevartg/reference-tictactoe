@@ -48,15 +48,15 @@ describe('create game command', function() {
 
         given = [];
         when =
-        {
-            id:"123987",
-            type: "CreateGame",
-            user: {
-                userName: "TheGuy"
-            },
-            name: "TheFirstGame",
-            timeStamp: "2014-12-02T11:29:29"
-        };
+            {
+                id:"123987",
+                type: "CreateGame",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:29"
+            };
         then = [
             {
                 type: "GameCreated",
@@ -119,22 +119,22 @@ describe('join game command', function () {
                 },
                 name: "TheFirstGame",
                 timeStamp: "2014-12-02T11:29:29",
-                side: 'O'
+                side:'O'
             }
         ];
 
     });
 
-    it('should emit FullGameJoinAttempted event when game full..implement this', function () {
-
-        given = [{
-            type: "GameCreated",
-            user: {
-                userName: "TheGuy"
+    it('should emit FullGameJoinAttempted event when game full', function () {
+        given = [
+            {
+                type: "GameCreated",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:29"
             },
-            name: "TheFirstGame",
-            timeStamp: "2014-12-02T11:29:29"
-        },
             {
                 type: "GameJoined",
                 user: {
@@ -142,33 +142,35 @@ describe('join game command', function () {
                 },
                 name: "TheFirstGame",
                 timeStamp: "2014-12-02T11:29:29",
-                side: 'O'
+                side:'O'
             }
         ];
+
         when =
             {
                 type: "JoinGame",
                 user: {
-                    userName: "Jens"
+                    userName: "jens"
                 },
                 name: "TheFirstGame",
                 timeStamp: "2014-12-02T11:30:29"
             };
+
         then = [
             {
                 type: "FullGameJoinAttempted",
                 user: {
-                    userName: "Jens"
+                    userName: "jens"
                 },
                 name: "TheFirstGame",
                 timeStamp: "2014-12-02T11:30:29"
             }
         ];
     });
+
 });
 
 describe('Place move command', function () {
-
 
     var given, when, then;
 
@@ -184,19 +186,52 @@ describe('Place move command', function () {
         });
     });
 
-    it('should emit MovePlaced on first game move', function () {
+    it('should emit MovePlaced on first game moved event', function () {
+
         given = [
+            {
+                type: "GameCreated",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side:'X'
+            },
+            {
+                type: "GameJoined",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:39",
+                side: 'O'
+            }
+        ];
+
+        when =
             {
                 type: "PlaceMove",
                 user: {
-                    username: "TheGuy"
+                    userName: "TheGuy"
                 },
                 name: "TheFirstGame",
-                timestampt: "2014-12-02T11:31:29",
-            },
+                timeStamp: "2014-12-02T11:30:29",
+                side: 'X',
+                move: { x: 2, y: 2 }
+            };
+        then = [
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:29",
+                side: 'X',
+                move: { x: 2, y: 2 }
+            }
         ];
-    });
+
+    })
 });
-
-
-
