@@ -441,4 +441,139 @@ describe('Place move command', function () {
             }
         ];
     });
+    it('Should emit game draw when neither wins', function () {
+        given = [
+            {
+                type: "GameCreated",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side:'X'
+            },
+            {
+                type: "GameJoined",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:30",
+                side: 'O'
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:31",
+                side: 'X',
+                move: { x: 0, y: 0 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:32",
+                side: 'O',
+                move: { x: 0, y: 1 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:33",
+                side: 'X',
+                move: { x: 0, y: 2 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:34",
+                side: 'O',
+                move: { x: 1, y: 0 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:35",
+                side: 'X',
+                move: { x: 1, y: 2 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:36",
+                side: 'O',
+                move: { x: 1, y: 1 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:37",
+                side: 'X',
+                move: { x: 2, y: 1 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:38",
+                side: 'O',
+                move: { x: 2, y: 2 }
+            },
+        ];
+        when =
+            {
+                type: "PlaceMove",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:38",
+                side: 'X',
+                move: { x: 2, y: 0 }
+            };
+        then = [
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:38",
+                side: 'X',
+                move: {x: 2, y: 0}
+            },
+            {
+                type: "GameDraw",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:40",
+                side: 'X',
+                move: {x: 2, y: 0}
+            }
+        ];
+    })
 });

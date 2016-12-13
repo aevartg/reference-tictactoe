@@ -8,7 +8,8 @@ module.exports = function (injected) {
         var playingBoard = [['', '', ''],['', '', ''],['', '', '']];
         var turn = '';
         var boardsize = 3;
-
+        var fullboard = 9;
+        var plays = 0;
 
         function processEvent(event) {
             if(event.type === "GameJoined") {
@@ -18,6 +19,7 @@ module.exports = function (injected) {
             if(event.type === "MovePlaced") {
                 playingBoard[event.move.x][event.move.y] = event.side;
                 turn = event.side;
+                plays++;
             }
 
         }
@@ -38,6 +40,9 @@ module.exports = function (injected) {
             return side === turn;
         }
 
+        function gameOver() {
+            return plays === fullboard;
+        }
 
         function winner(side)
         {
@@ -71,6 +76,7 @@ module.exports = function (injected) {
             gameFull: gameFull,
             getSide: getSide,
             winner: winner,
+            gameOver: gameOver,
             processEvents: processEvents
         }
     };

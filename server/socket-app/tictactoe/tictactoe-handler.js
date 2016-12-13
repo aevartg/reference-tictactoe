@@ -94,6 +94,18 @@ module.exports = function(injected){
                             });
                             return;
                         }
+                        else if(gameState.gameOver()) {
+                            events.push({
+                                gameId: cmd.gameId,
+                                type: "GameDraw",
+                                user: cmd.user,
+                                name: cmd.name,
+                                timeStamp: cmd.timeStamp,
+                                side: cmd.side,
+                                move: cmd.move
+                            });
+                            return;
+                        }
 
                         // Check here for conditions which may warrant additional events to be emitted.
                         eventHandler(events);
