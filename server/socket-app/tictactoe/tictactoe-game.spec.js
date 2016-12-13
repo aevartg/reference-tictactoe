@@ -291,4 +291,154 @@ describe('Place move command', function () {
             }
         ];
     });
+    it('Should emit NotYourMove if attempting to make move out of turn', function () {
+        given = [
+            {
+                type: "GameCreated",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side:'X'
+            },
+            {
+                type: "GameJoined",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:39",
+                side: 'O'
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:29",
+                side: 'X',
+                move: { x: 0, y: 2 }
+            }
+        ];
+        when =
+            {
+                type: "PlaceMove",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:37",
+                side: 'X',
+                move: { x: 0, y: 1 }
+            };
+        then = [
+            {
+                type: "NotYourMove",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:37",
+                side: 'X',
+                move: {x: 0, y: 1}
+            }
+        ];
+    });
+    it('Should emit game won on', function () {
+        given = [
+            {
+                type: "GameCreated",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side:'X'
+            },
+            {
+                type: "GameJoined",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:30",
+                side: 'O'
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:31",
+                side: 'X',
+                move: { x: 0, y: 0 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:32",
+                side: 'O',
+                move: { x: 1, y: 1 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:33",
+                side: 'X',
+                move: { x: 0, y: 1 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:34",
+                side: 'O',
+                move: { x: 1, y: 1 }
+            }
+        ];
+        when =
+            {
+                type: "PlaceMove",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:35",
+                side: 'X',
+                move: { x: 0, y: 2 }
+            };
+        then = [
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:35",
+                side: 'X',
+                move: { x: 0, y: 2 }
+            },
+            {
+                type: "GameWon",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:37",
+                side: 'X',
+                move: {x: 0, y: 2}
+            }
+        ];
+    });
 });

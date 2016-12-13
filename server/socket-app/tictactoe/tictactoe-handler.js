@@ -43,10 +43,11 @@ module.exports = function(injected){
                         }]);
                     },
                     "PlaceMove": function(cmd){
-                        if(gameState.setBoard(cmd.move) === -1) {
+                        if(gameState.getSide(cmd.side))
+                        {
                             eventHandler([{
                                 gameId: cmd.gameId,
-                                type: "MovePlaced",
+                                type: "NotYourMove",
                                 user: cmd.user,
                                 name: cmd.name,
                                 timeStamp: cmd.timeStamp,
@@ -70,8 +71,29 @@ module.exports = function(injected){
                         }
 
 
-
+                       var events = [{
+                            gameId: cmd.gameId,
+                            type: "MovePlaced",
+                            user: cmd.user,
+                            name: cmd.name,
+                            timeStamp: cmd.timeStamp,
+                            side: cmd.side,
+                            move: cmd.move
+                        }];
                         gameState.processEvents(events);
+
+                        if(gameState.winner(cmd.side)) {
+                            events.push({
+                                gameId: cmd.gameId,
+                                type: "GameWon",
+                                user: cmd.user,
+                                name: cmd.name,
+                                timeStamp: cmd.timeStamp,
+                                side: cmd.side,
+                                move: cmd.move
+                            });
+                            return;
+                        }
 
                         // Check here for conditions which may warrant additional events to be emitted.
                         eventHandler(events);
