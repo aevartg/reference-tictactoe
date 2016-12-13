@@ -43,8 +43,7 @@ module.exports = function(injected){
                         }]);
                     },
                     "PlaceMove": function(cmd){
-
-                        if(gameState.setBoard(cmd.move)){
+                        if(gameState.setBoard(cmd.move) === -1) {
                             eventHandler([{
                                 gameId: cmd.gameId,
                                 type: "MovePlaced",
@@ -56,6 +55,21 @@ module.exports = function(injected){
                             }]);
                             return;
                         }
+
+                        if(gameState.setBoard(cmd.move) === 'X' || gameState.setBoard(cmd.move) === 'O'){
+                            eventHandler([{
+                                gameId: cmd.gameId,
+                                type: "IllegalMove",
+                                user: cmd.user,
+                                name: cmd.name,
+                                timeStamp: cmd.timeStamp,
+                                side: cmd.side,
+                                move: cmd.move
+                            }]);
+                            return;
+                        }
+
+
 
                         gameState.processEvents(events);
 

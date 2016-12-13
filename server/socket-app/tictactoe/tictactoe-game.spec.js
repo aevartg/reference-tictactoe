@@ -218,7 +218,7 @@ describe('Place move command', function () {
                 name: "TheFirstGame",
                 timeStamp: "2014-12-02T11:30:29",
                 side: 'X',
-                move: { x: 2, y: 2 }
+                move: { x: 0, y: 2 }
             };
         then = [
             {
@@ -229,9 +229,66 @@ describe('Place move command', function () {
                 name: "TheFirstGame",
                 timeStamp: "2014-12-02T11:30:29",
                 side: 'X',
-                move: { x: 2, y: 2 }
+                move: { x: 0, y: 2 }
             }
         ];
 
-    })
+    });
+    it('should emit IllegalMove when square is already occupied', function () {
+        given = [
+            {
+                type: "GameCreated",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side:'X'
+            },
+            {
+                type: "GameJoined",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:39",
+                side: 'O'
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:29",
+                side: 'X',
+                move: { x: 0, y: 2 }
+            }
+        ];
+
+        when =
+            {
+                type: "PlaceMove",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:35",
+                side: 'O',
+                move: { x: 0, y: 2 }
+            };
+
+        then = [
+            {
+                type: "IllegalMove",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:35",
+                side: 'O',
+                move: {x: 0, y: 2}
+            }
+        ];
+    });
 });
