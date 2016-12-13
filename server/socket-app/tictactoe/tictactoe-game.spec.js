@@ -103,14 +103,14 @@ describe('join game command', function () {
         }
         ];
         when =
-        {
-            type: "JoinGame",
-            user: {
-                userName: "Gummi"
-            },
-            name: "TheFirstGame",
-            timeStamp: "2014-12-02T11:29:29"
-        };
+            {
+                type: "JoinGame",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:29"
+            };
         then = [
             {
                 type: "GameJoined",
@@ -119,7 +119,7 @@ describe('join game command', function () {
                 },
                 name: "TheFirstGame",
                 timeStamp: "2014-12-02T11:29:29",
-                side:'O'
+                side: 'O'
             }
         ];
 
@@ -127,8 +127,45 @@ describe('join game command', function () {
 
     it('should emit FullGameJoinAttempted event when game full..implement this', function () {
 
-        expect(true).toBe(false);
+        given = [{
+            type: "GameCreated",
+            user: {
+                userName: "TheGuy"
+            },
+            name: "TheFirstGame",
+            timeStamp: "2014-12-02T11:29:29"
+        },
+            {
+                type: "GameJoined",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side: 'O'
+            }
+        ];
+        when =
+            {
+                type: "JoinGame",
+                user: {
+                    userName: "Jens"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:29"
+            };
+        then = [
+            {
+                type: "FullGameJoinAttempted",
+                user: {
+                    userName: "Jens"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:29"
+            }
+        ];
     });
+});
 
 describe('Place move command', function () {
 
@@ -160,5 +197,6 @@ describe('Place move command', function () {
         ];
     });
 });
+
 
 

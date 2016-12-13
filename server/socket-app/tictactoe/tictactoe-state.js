@@ -4,6 +4,8 @@ module.exports = function (injected) {
 
     return function (history) {
 
+        var gamefull = false;
+
         function processEvent(event) {
             if(event.type==="GameJoined"){
                 gamefull = true;
@@ -16,7 +18,12 @@ module.exports = function (injected) {
 
         processEvents(history);
 
+        function gameFull(){
+            return gamefull;
+        }
+
         return {
+            gameFull: gameFull,
             processEvents: processEvents
         }
     };
