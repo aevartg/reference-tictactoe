@@ -5,6 +5,7 @@ services:
       - 'PGHOST=postgres'
       - 'PGPORT=5432'
       - 'PORT=3000'
+      - 'NODE_ENV=production'
     # pulls the image tictactoe from aevartg to compose with another image
     image: 'aevartg/tictactoe:${GIT_COMMIT}'
     ports:
