@@ -67,6 +67,22 @@ module.exports=function(injected){
             },
             disconnect:function(){
                 routingContext.socket.disconnect();
+            },
+            createGame:()=>{
+                var cmdId = generateUUID();
+                var leikId = generateUUID();
+                routingContext.commandRouter.routeMessage({commandId:cmdId, type:"CreateGame", gameId:leikId});
+                return me;
+            },
+            expectGameCreated:()=>{
+               waitingFor.push("expectGameCreated");
+                routingContext.eventRouter.on('GameCreated', function(leikur){
+                    var Leikur = leikur;
+                    expect(Leikur.gameId).not.toBeUndefined();
+                    waitingFor.pop();
+                    }
+                );
+                return me;
             }
 
         };
