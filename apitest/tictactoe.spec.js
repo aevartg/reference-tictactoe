@@ -42,9 +42,9 @@ Notice especially the passing of gameId from userA to userB. This is a must in t
 played in lock-step. All "expectXXX" functions must check for matching gameId, otherwise this will not work
 for a load test where multiple users will be playing.*/
 
-        userA.expectGameCreated().createGame().then(done);/*=> {
-                /*userB.expectGameJoined().joinGame(userA.getGame().gameId).then(function () {
-                    userA.expectMoveMade().placeMove(0, 0).then(()=> {
+        userA.expectGameCreated().createGame().then(()=> {
+                userB.expectGameJoined().joinGame(userA.getGame().gameId).then(done);/* {
+                   /* userA.expectMoveMade().placeMove(0, 0).then(()=> {
                         userA.expectMoveMade();
                         userB.expectMoveMade().placeMove(1, 0).then(()=> {
                             userB.expectMoveMade(); // By other user
@@ -60,8 +60,10 @@ for a load test where multiple users will be playing.*/
                     })
                 })
             }
-        );
-*/
+        );*/
+
+
+
     });
 
 });

@@ -9,6 +9,7 @@ module.exports=function(injected){
     function userAPI(){
         var waitingFor=[];
         var commandId=0;
+        var Leikur;
 
         var routingContext = RoutingContext(inject({
             io,
@@ -77,7 +78,25 @@ module.exports=function(injected){
             expectGameCreated:()=>{
                waitingFor.push("expectGameCreated");
                 routingContext.eventRouter.on('GameCreated', function(leikur){
-                    var Leikur = leikur;
+                    Leikur = leikur;
+                    expect(Leikur.gameId).not.toBeUndefined();
+                    waitingFor.pop();
+                    }
+                );
+                return me;
+            },
+            getGame:()=>{
+                return Leikur;
+            },
+            joinGame:(leikId)=>{
+                var cmId = generateUUID();
+                routingContext.commandRouter.routeMessage({commandId:cmdId, type:"JoinGame", gameId:leikId});
+                return me;
+            },
+            expectGameJoined:()=>{
+                waitingFor.push("expectGameJoined");
+                routingContext.eventRouter.on('GameJoined', function(leikur) {
+                    Leikur = leikur;
                     expect(Leikur.gameId).not.toBeUndefined();
                     waitingFor.pop();
                     }
