@@ -19,6 +19,24 @@ cd ..
 echo "Cleaning and building"
 npm run build
 
+# catches error message if npm build fails
+rc=$?
+if [[ $rc != 0 ]] ; then
+    echo "Npm build failed with exit code " $rc
+    exit $rc
+fi
+
+# Unit testing
+echo "Running unit tests"
+npm run test
+
+# catches error message if npm test fails
+rc=$?
+if [[ $rc != 0 ]] ; then
+    echo "Npm test failed with exit code " $rc
+    exit $rc
+fi
+
 # puts git commit hash to env file in build directory
 cat > ./build/.env <<_EOF_
 GIT_COMMIT=$GIT_COMMIT
@@ -38,12 +56,6 @@ cat > ./build/version.html << _EOF_
 </body>
 _EOF_
 
-# catches error message if npm build fails
-rc=$?
-if [[ $rc != 0 ]] ; then
-    echo "Npm build failed with exit code " $rc
-    exit $rc
-fi
 
 # copies dockerfile, package.json and run script to build directory
 echo "copying dockerfile and packaje.js to build"
