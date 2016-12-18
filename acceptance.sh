@@ -4,6 +4,9 @@
 echo "installing npm"
 npm install --silent
 
+echo "starting npm"
+npm run start
+
 # API testing
-echo "Running unit tests"
+echo "Running apitests"
 npm run apitest
