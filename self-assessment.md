@@ -47,6 +47,4 @@ Bíður í smá stund áður en hann gerir migratedb til þess að hann virki
 
 Did you use any of the following features in Jenkins?
 
-- After each git push, the Commit stage starts on Jenkins
-
 - Pipeline
