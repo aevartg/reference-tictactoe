@@ -36,7 +36,18 @@ npm run test
 # catches error message if npm test fails
 rc=$?
 if [[ $rc != 0 ]] ; then
-    echo "Npm test failed with exit code " $rc
+    echo "Npm unit test failed with exit code " $rc
+    exit $rc
+fi
+
+# API testing
+echo "Running unit tests"
+npm run apitest
+
+# catches error message if apitest fails
+rc=$?
+if [[ $rc != 0 ]] ; then
+    echo "Npm apitest failed with exit code " $rc
     exit $rc
 fi
 

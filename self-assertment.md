@@ -10,45 +10,42 @@
 
 Outline what script files you created and the purpose of each file. Each file should be commented. This could be
 
-- Docker build
+- [Docker build](https://github.com/aevartg/reference-tictactoe/blob/master/test.sh)
+aðal scriptan sem keyrir installar npm, keyrir unit test, apitest, færir skrár í build og setur í container á Docker
 
-- Docker compose
+- [Dockerfile](https://github.com/aevartg/reference-tictactoe/blob/master/Dockerfile)
+segir docker hvað hann á að gera til þess að fá forritið í container
 
-- AWS Provisioning 
+- [Docker compose](https://github.com/aevartg/reference-tictactoe/blob/master/docker-compose.yml)
+sækir containerinn og postgres og sameinar í keyranlegt forrit
 
-- Other scripts
+- [AWS Provisioning](https://github.com/aevartg/reference-tictactoe/blob/master/deployToAws.sh)
+stoppar docker containerinn ef hann er keyrandi, færir compose og .env filea úr jenkins yfir í aws og keyrir
 
+- [Migrate database](https://github.com/aevartg/reference-tictactoe/blob/master/run.sh)
+bíður í smá stund áður en hann gerir migratedb til þess að hann virki
 
 
 ## Testing & logic
 
-Outline what tests you created.
+- UnitTests
+-- Reyndi að gera þau með TDD sem best.
 
-- UnitTests, server logic TDD (Git commit log)
+- Gerði fyrsta Api testið en náði ekki að gera meira.
 
-- API Acceptance test - fluent API
-
-- Load test loop
-
-- UI TDD
-
-- Is the game playable?
+- Is the game playable? Nei
 
 
 
 ## Data migration
 
-Did you create a data migration.
-
-- Migration up and down
+- [Gerði migration](https://github.com/aevartg/reference-tictactoe/tree/master/server/migrations) sem bætir við dálk í töflu
 
 
 
 ## Jenkins
 
-Do you have the following Jobs and what happens in each Job:
-
-- Commit Stage
+- [Commit Stage](https://github.com/aevartg/reference-tictactoe/blob/master/test.sh)
 
 - Acceptance Stage
 
