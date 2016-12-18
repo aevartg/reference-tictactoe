@@ -40,10 +40,6 @@ if [[ $rc != 0 ]] ; then
     exit $rc
 fi
 
-# API testing
-echo "Running unit tests"
-npm run apitest
-
 # catches error message if apitest fails
 rc=$?
 if [[ $rc != 0 ]] ; then

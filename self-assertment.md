@@ -47,7 +47,7 @@ bíður í smá stund áður en hann gerir migratedb til þess að hann virki
 
 - [Commit Stage](https://github.com/aevartg/reference-tictactoe/blob/master/test.sh)
 
-- Acceptance Stage
+- [Acceptance Stage](https://github.com/aevartg/reference-tictactoe/blob/master/acceptance.sh)
 
 - Capacity Stage
 
