@@ -25,13 +25,14 @@ if [[ $rc != 0 ]] ; then
     echo "Npm build failed with exit code " $rc
     exit $rc
 fi
+npm install nodemon
 
 # Unit testing
 echo "Running unit tests"
 npm run test
 
 # catches error message if npm test fails
-rc=$?
+rc=$?g
 if [[ $rc != 0 ]] ; then
     echo "Npm test failed with exit code " $rc
     exit $rc
